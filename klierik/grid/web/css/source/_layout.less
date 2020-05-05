@@ -1,0 +1,191 @@
+/*
+ * Copyright © github.com/klierik All rights reserved.
+ * See LICENSE for license details.
+ */
+
+@layout-column-main__sidebar-offset: 2%;
+@layout-column__additional-sidebar-offset: @layout-column-main__sidebar-offset;
+
+//
+//  Common
+//  _____________________________________________
+
+& when (@media-common = true) {
+
+    .columns {
+        .lib-make-row();
+
+        box-sizing: border-box;
+
+        .column.main {
+            .lib-make-col-ready();
+            .lib-vendor-prefix-order(@layout-column-main__order__xs);
+
+            box-sizing: border-box;
+        }
+
+        .sidebar-wrapper {
+            .lib-make-col-ready();
+            .lib-vendor-prefix-order(@layout-column__sidebar-order__xs);
+
+            box-sizing: border-box;
+        }
+
+        .sidebar-main {
+            .@{layout-class-3columns} & {
+                .lib-make-col-ready();
+                .lib-vendor-prefix-order(@layout-column__sidebar-left-order__xs);
+
+                box-sizing: border-box;
+            }
+        }
+
+        .sidebar-additional {
+            .@{layout-class-3columns} & {
+                .lib-make-col-ready();
+                .lib-vendor-prefix-order(@layout-column__sidebar-right-order__xs);
+
+                box-sizing: border-box;
+            }
+        }
+    }
+}
+
+//
+//  Mobile
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    .navigation,
+    .breadcrumbs,
+    .page-header .header.panel,
+    .header.content,
+    .footer.content,
+    .page-main,
+    .page-wrapper > .widget,
+    .page-wrapper > .page-bottom,
+    .block.category.event,
+    .top-container {
+        .lib-make-container();
+        .lib-make-container-max-width();
+
+        box-sizing: border-box;
+    }
+
+    .page-main {
+        .account &,
+        .cms-privacy-policy & {
+            padding-top: 41px;
+            position: relative;
+        }
+    }
+}
+
+//
+//  Desktop
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .navigation,
+    .breadcrumbs,
+    .page-header .header.panel,
+    .header.content,
+    .footer.content,
+    .page-wrapper > .widget,
+    .page-wrapper > .page-bottom,
+    .block.category.event,
+    .top-container,
+    .page-main {
+        .lib-make-container();
+        .lib-make-container-max-width();
+
+        box-sizing: border-box;
+    }
+
+    .page-main,
+    .page-wrapper > .page-bottom {
+        .@{layout-class-1column-full-width} & {
+            max-width: none;
+            padding-left: 0;
+            padding-right: 0;
+        }
+    }
+
+    .columns {
+        .lib-make-row();
+
+        .@{layout-class-1column-full-width} & {
+            margin-left: 0;
+            margin-right: 0;
+        }
+    }
+
+    .column.main {
+        .lib-css(min-height, @layout-column-main__min-width__m);
+
+        .@{layout-class-1column} & {
+            .lib-make-col-ready();
+            .lib-vendor-prefix-flex-basis(0);
+            .lib-vendor-prefix-flex-grow(1);
+        }
+        .@{layout-class-1column-full-width} & {
+            padding-left: 0;
+            padding-right: 0;
+        }
+        .@{layout-class-3columns} & {
+            .lib-make-col(@layout-column-main__width-3);
+            .lib-make-col-offset(@layout-column-main__offset-3);
+            .lib-vendor-prefix-order(@layout-column-main__order-3);
+        }
+        .@{layout-class-2columns__left} & {
+            .lib-make-col(@layout-column-main__width-2-left);
+            .lib-make-col-offset(@layout-column-main__offset-2-left);
+            .lib-vendor-prefix-order(@layout-column-main__order-2-left);
+        }
+        .@{layout-class-2columns__right} & {
+            .lib-make-col(@layout-column-main__width-2-right);
+            .lib-make-col-offset(@layout-column-main__offset-2-right);
+            .lib-vendor-prefix-order(@layout-column-main__order-2-right);
+        }
+    }
+
+    .sidebar-wrapper {
+        .@{layout-class-3columns} & {
+            .lib-make-col(@layout-column__sidebar-width);
+        }
+        .@{layout-class-1column-full-width} & {
+            padding-left: 0;
+            padding-right: 0;
+        }
+        .@{layout-class-2columns__left} & {
+            .lib-make-col(@layout-column__left-width);
+            .lib-make-col-offset(@layout-column__left-offset);
+            .lib-vendor-prefix-order(@layout-column__left-order);
+        }
+        .@{layout-class-2columns__right} & {
+            .lib-make-col(@layout-column__right-width);
+            .lib-make-col-offset(@layout-column__right-offset);
+            .lib-vendor-prefix-order(@layout-column__right-order);
+        }
+    }
+
+    .sidebar-main {
+        .@{layout-class-3columns} & {
+            .lib-make-col(@layout-column__left-width-3);
+            .lib-make-col-offset(@layout-column__left-offset-3);
+            .lib-vendor-prefix-order(@layout-column__left-order-3);
+        }
+    }
+
+    .sidebar-additional {
+        .@{layout-class-3columns} & {
+            .lib-make-col(@layout-column__right-width-3);
+            .lib-make-col-offset(@layout-column__right-offset-3);
+            .lib-vendor-prefix-order(@layout-column__right-order-3);
+        }
+    }
+
+    .panel.header {
+        padding: 10px 20px;
+    }
+}

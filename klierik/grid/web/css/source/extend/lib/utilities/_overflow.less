@@ -1,0 +1,19 @@
+/*
+ * Copyright © github.com/klierik All rights reserved.
+ * See LICENSE for license details.
+ */
+
+.lib-utilities-overflow(
+    @_array: @overflows,
+    @_iterator: length(@overflows)
+) when (@_iterator > 0 ) {
+
+    @_value: extract(extract(@_array, @_iterator), 1);
+
+    .overflow-@{_value} {
+        overflow: @_value !important;
+    }
+    .lib-utilities-overflow(
+        @_iterator: (@_iterator - 1)
+    );
+};

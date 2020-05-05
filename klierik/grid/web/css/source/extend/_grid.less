@@ -1,0 +1,164 @@
+/*
+ * Copyright © github.com/klierik All rights reserved.
+ * See LICENSE for license details.
+ */
+
+// Framework grid generation
+
+//
+//  Common
+//  _____________________________________________
+
+& when (@media-common = true) {
+
+    .@{grid-class-container} {
+        .lib-make-container();
+        .lib-make-container-max-width();
+    }
+
+    .@{grid-class-container}-fluid {
+        .lib-make-container();
+    }
+
+    .@{grid-class-row} {
+        .lib-make-row();
+
+        & > .@{grid-class-column} {
+            .lib-make-col-ready();
+            .lib-vendor-prefix-flex-basis(0);
+            .lib-vendor-prefix-flex-grow(1);
+        }
+
+        & > .@{grid-class-column}-auto {
+            .lib-make-col-ready();
+            .lib-make-col-auto();
+        }
+    }
+
+    .lib-make-grid-columns();
+    .lib-make-grid-offsets();
+
+    // Remove the negative margin from default .row, then the horizontal padding
+    // from all immediate children columns (to prevent runaway style inheritance).
+    .no-gutters {
+        .lib-reset-row-gutters();
+    }
+
+}
+
+//
+//  Mobile
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+
+    .@{grid-class-container}-xs {
+        .lib-make-container();
+        .lib-make-container-max-width();
+    }
+
+    .@{grid-class-container}-fluid-xs {
+        .lib-make-container();
+    }
+
+    .@{grid-class-row} > .@{grid-class-column}-xs {
+        .lib-make-col-ready();
+    }
+
+    .lib-make-grid-columns(@_breakpoint: xs);
+    .lib-make-grid-offsets(@_breakpoint: xs);
+
+    // Remove the negative margin from default .row, then the horizontal padding
+    // from all immediate children columns (to prevent runaway style inheritance).
+    .no-gutters {
+        .lib-reset-row-gutters();
+    }
+
+}
+
+//
+//  Tablet
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+
+    .@{grid-class-container}-md {
+        .lib-make-container();
+        .lib-make-container-max-width();
+    }
+
+    .@{grid-class-container}-fluid-md {
+        .lib-make-container();
+    }
+
+    //.@{grid-class-container}-fluid {
+    //    .lib-make-container();
+    //}
+
+    .@{grid-class-row} {
+        //.lib-make-row();
+        //
+        //& > .@{grid-class-column} {
+        //    .lib-make-col-ready();
+        //    .lib-vendor-prefix-flex-basis(0);
+        //    .lib-vendor-prefix-flex-grow(1);
+        //}
+        //
+        //& > .@{grid-class-column}-auto {
+        //    .lib-make-col-ready();
+        //    .lib-make-col-auto();
+        //}
+
+        & > .@{grid-class-column}-md {
+            .lib-make-col-ready();
+            .lib-vendor-prefix-flex-basis(0);
+            .lib-vendor-prefix-flex-grow(1);
+        }
+    }
+
+    .lib-make-grid-columns();
+    .lib-make-grid-columns(@_breakpoint: md);
+    .lib-make-grid-offsets(@_breakpoint: md);
+
+    // Remove the negative margin from default .row, then the horizontal padding
+    // from all immediate children columns (to prevent runaway style inheritance).
+    .no-gutters {
+        .lib-reset-row-gutters();
+    }
+
+}
+
+//
+//  Desktop
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+
+    .@{grid-class-container}-lg {
+        .lib-make-container();
+        .lib-make-container-max-width();
+    }
+
+    .@{grid-class-container}-fluid-lg {
+        .lib-make-container();
+    }
+
+    .@{grid-class-row} {
+        & > .@{grid-class-column}-lg {
+            .lib-make-col-ready();
+            .lib-vendor-prefix-flex-basis(0);
+            .lib-vendor-prefix-flex-grow(1);
+        }
+    }
+
+    .lib-make-grid-columns(@_breakpoint: lg);
+    .lib-make-grid-offsets(@_breakpoint: lg);
+
+    // Remove the negative margin from default .row, then the horizontal padding
+    // from all immediate children columns (to prevent runaway style inheritance).
+    .no-gutters {
+        .lib-reset-row-gutters();
+    }
+
+}
+

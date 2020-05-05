@@ -1,0 +1,19 @@
+/*
+ * Copyright © github.com/klierik All rights reserved.
+ * See LICENSE for license details.
+ */
+
+.lib-utilities-position(
+    @_array: @positions,
+    @_iterator: length(@positions)
+) when (@_iterator > 0 ) {
+
+    @_value: extract(extract(@_array, @_iterator), 1);
+
+    .position-@{_value} {
+        position: @_value !important;
+    }
+    .lib-utilities-position(
+        @_iterator: (@_iterator - 1)
+    );
+};

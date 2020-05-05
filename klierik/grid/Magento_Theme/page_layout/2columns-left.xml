@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!--
+  ~ Copyright © Era Jewelry. All rights reserved.
+  ~ See LICENSE_ERA_JEWELRY.txt for license details.
+  -->
+
+<layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_layout.xsd">
+    <update handle="1column"/>
+    <referenceContainer name="columns">
+        <container name="div.sidebar.wrapper" htmlTag="div" htmlClass="sidebar sidebar-wrapper" after="main"/>
+    </referenceContainer>
+
+    <move element="div.sidebar.main" destination="div.sidebar.wrapper"/>
+    <move element="div.sidebar.additional" destination="div.sidebar.wrapper"/>
+</layout>

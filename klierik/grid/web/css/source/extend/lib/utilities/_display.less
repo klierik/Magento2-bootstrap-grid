@@ -1,0 +1,47 @@
+/*
+ * Copyright © github.com/klierik All rights reserved.
+ * See LICENSE for license details.
+ */
+
+.lib-utilities-display(
+    @_breakpoint: false,
+    @_array: @displays
+) when (@_breakpoint = false) {
+    ._lib-utilities-display(
+        @__breakpoint: ~"",
+        @__array: @_array
+    );
+}
+
+.lib-utilities-display(
+    @_breakpoint: false,
+    @_array: @displays
+) when not (@_breakpoint = false) {
+    ._lib-utilities-display(
+        @__breakpoint: ~"-@{_breakpoint}",
+        @__array: @_array
+    );
+}
+
+//
+//  Inner display mixins
+//  ---------------------------------------------
+
+._lib-utilities-display(
+    @__breakpoint: false,
+    @__array: @displays,
+    @__iterator: length(@displays)
+) when (@__iterator > 0 ) {
+
+    @_value: extract(extract(@__array, @__iterator), 1);
+
+    .d@{__breakpoint}-@{_value} {
+        display: @_value !important;
+    }
+
+    ._lib-utilities-display(
+        @__breakpoint: @__breakpoint,
+        @__iterator: (@__iterator - 1)
+    );
+
+}

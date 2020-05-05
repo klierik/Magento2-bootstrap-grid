@@ -1,0 +1,233 @@
+/*
+ * Copyright © github.com/klierik All rights reserved.
+ * See LICENSE for license details.
+ */
+
+// Grid system
+//
+// Generate semantic grid columns with these mixins.
+
+.lib-make-container(
+    @_width: 100%,
+    @_margin-left: auto,
+    @_margin-right: auto,
+    @_gutter: @grid-gutter-width
+) {
+    width: @_width;
+    margin-left: @_margin-left;
+    margin-right: @_margin-right;
+    padding-left: (@_gutter / 2);
+    padding-right: (@_gutter / 2);
+};
+
+.lib-make-container-max-width(
+    @_max-width: @grid-container__max-width
+) {
+    max-width: @_max-width;
+};
+
+// Row
+
+.lib-make-row(
+    @_gutter: @grid-gutter-width
+) {
+    .lib-vendor-prefix-display();
+    .lib-vendor-prefix-flex-wrap();
+
+    margin-left: -(@_gutter / 2);
+    margin-right: -(@_gutter / 2);
+};
+
+// Columns
+
+.lib-make-col-ready(
+    @_gutter: @grid-gutter-width
+){
+    position: relative;
+
+    // Prevent columns from becoming too narrow when at smaller grid tiers by
+    // always setting `width: 100%;`. This works because we use `flex` values
+    // later on to override this initial width.
+    width: 100%;
+    padding-right: (@_gutter / 2);
+    padding-left: (@_gutter / 2);
+};
+
+.lib-make-col(
+    @_size,
+    @_columns: @grid-columns,
+    @_gutter: @grid-gutter-width
+) {
+    .lib-make-col-ready(@_gutter: @_gutter);
+    .lib-css(flex, 0 0 percentage(@_size / @_columns), 1);
+
+    // Add a `max-width` to ensure content within each column does not blow out
+    // the width of the column. Applies to IE10+ and Firefox. Chrome and Safari
+    // do not appear to require this.
+    max-width: percentage(@_size / @_columns);
+};
+
+.lib-make-grid-columns(
+    @_class-row: @grid-class-row,
+    @_class-column: @grid-class-column,
+    @_columns: @grid-columns,
+    @_gutter: @grid-gutter-width,
+    @_breakpoint: false
+) {
+    ._lib-make-grid-columns(
+        @__class-row: @_class-row,
+        @__class-column: @_class-column,
+        @__columns: @_columns,
+        @__gutter: @_gutter,
+        @__breakpoint: @_breakpoint,
+        @__iterator: @_columns
+    );
+};
+
+.lib-make-col-auto() {
+    .lib-css(flex, 0 0 auto, 1);
+
+    width: auto;
+    max-width: 100%; // Reset earlier grid tiers
+}
+
+.lib-make-col-offset(
+    @_size,
+    @_columns: @grid-columns
+) {
+    @_num: @_size / @_columns;
+
+    & when (@_num = 0) {
+        margin-left: 0;
+    }
+
+    & when not (@_num = 0) {
+        margin-left: percentage(@_num);
+    }
+}
+
+.lib-reset-row-gutters(
+    @_class-column: @grid-class-column
+) {
+    margin-right: 0;
+    margin-left: 0;
+
+    > .@{_class-column},
+    > [class*="@{_class-column}-"] {
+        padding-right: 0;
+        padding-left: 0;
+    }
+};
+
+.lib-make-grid-offsets(
+    @_columns: @grid-columns,
+    @_breakpoint: false
+) {
+    ._lib-make-grid-offsets(
+        @__columns: @_columns,
+        @__breakpoint: @_breakpoint,
+        @__iterator: (@_columns - 1)
+    );
+
+};
+
+//.lib-reset-container-padding(
+//    @_padding: @grid-gutter-width
+//) {
+//    margin-left: -@_padding;
+//    margin-right: -@_padding;
+//}
+
+//
+//  Inner grid mixins
+//  ---------------------------------------------
+
+._lib-make-grid-columns(
+    @__class-row: @grid-class-row,
+    @__class-column: @grid-class-column,
+    @__columns: @grid-columns,
+    @__gutter: @grid-gutter-width,
+    @__breakpoint: false,
+    @__iterator: @grid-columns
+) when (@__iterator > 0) and (@__breakpoint = false) {
+
+    .@{__class-row} > .@{__class-column}-@{__iterator} {
+        .lib-make-col(
+            @_size: @__iterator,
+            @_columns: @__columns,
+            @_gutter: @__gutter
+        );
+    }
+
+    ._lib-make-grid-columns(
+        @__class-row: @__class-row,
+        @__class-column: @__class-column,
+        @__columns: @__columns,
+        @__gutter: @__gutter,
+        @__iterator: (@__iterator - 1)
+    );
+}
+
+._lib-make-grid-columns(
+    @__class-row: @grid-class-row,
+    @__class-column: @grid-class-column,
+    @__columns: @grid-columns,
+    @__gutter: @grid-gutter-width,
+    @__breakpoint: false,
+    @__iterator: @grid-columns
+) when (@__iterator > 0) and not (@__breakpoint = false) {
+
+    .@{__class-row} > .@{__class-column}-@{__breakpoint}-@{__iterator} {
+        .lib-make-col(
+            @_size: @__iterator,
+            @_columns: @__columns,
+            @_gutter: @__gutter
+        );
+    }
+
+    ._lib-make-grid-columns(
+        @__class-row: @__class-row,
+        @__class-column: @__class-column,
+        @__columns: @__columns,
+        @__gutter: @__gutter,
+        @__breakpoint: @__breakpoint,
+        @__iterator: (@__iterator - 1)
+    );
+}
+
+._lib-make-grid-offsets(
+    @__columns: @grid-columns,
+    @__breakpoint: false,
+    @__iterator: @grid-columns
+) when (@__iterator > 0) and (@__breakpoint = false) {
+
+    .@{grid-class-offset}-@{__iterator} {
+        .lib-make-col-offset(
+            @_size: @__iterator,
+            @_columns: @__columns
+        );
+    }
+
+    ._lib-make-grid-offsets(
+        @__iterator: (@__iterator - 1)
+    );
+}
+
+._lib-make-grid-offsets(
+    @__columns: @grid-columns,
+    @__breakpoint: false,
+    @__iterator: @grid-columns
+) when (@__iterator > 0) and not (@__breakpoint = false) {
+
+    .@{grid-class-offset}-@{__breakpoint}-@{__iterator} {
+        .lib-make-col-offset(
+            @_size: @__iterator,
+            @_columns: @__columns
+        );
+    }
+
+    ._lib-make-grid-offsets(
+        @__breakpoint: @__breakpoint,
+        @__iterator: (@__iterator - 1)
+    );
+}

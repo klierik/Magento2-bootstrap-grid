@@ -1,0 +1,62 @@
+/*
+ * Copyright © github.com/klierik All rights reserved.
+ * See LICENSE for license details.
+ */
+
+//
+//  Layout variables
+//  _____________________________________________
+
+//  Class names defining different layouts
+@layout-class-1column-full-width: page-layout-1column-full-width;
+
+//  Widths
+@layout__max-width: 1440px;
+@layout-indent__width: 30px;
+@layout__width-xs-indent: (@layout-indent__width / 2);
+
+@layout-column-main__min-width__m: 300px;
+
+//  Variables for layout columns
+@layout-column__width: @grid-columns;
+
+@layout-column-main__order__xs: 1;
+@layout-column__sidebar-order__xs: 2;
+@layout-column__sidebar-left-order__xs: 0;
+@layout-column__sidebar-right-order__xs: 2;
+
+@layout-column__sidebar-width: 3;
+@layout-column__sidebar-width-3: @layout-column__sidebar-width;
+
+@layout-column__left-width: @layout-column__sidebar-width;
+@layout-column__left-offset: 0;
+@layout-column__left-order: 0;
+
+@layout-column__right-width: @layout-column__sidebar-width;
+@layout-column__right-offset: 0;
+@layout-column__right-order: 2;
+
+@layout-column__left-width-3: @layout-column__sidebar-width-3;
+@layout-column__left-offset-3: 0;
+@layout-column__left-order-3: 0;
+
+@layout-column__right-width-3: @layout-column__sidebar-width-3;
+@layout-column__right-offset-3: 0;
+@layout-column__right-order-3: 2;
+
+//  Variables for layout columns depending on layout used
+@layout-column-main__offset-2-left: 1;
+@layout-column-main__width-2-left: (@layout-column__width - @layout-column-main__offset-2-left - (@layout-column__sidebar-width + @layout-column__left-offset));
+@layout-column-main__order-2-left: 1;
+
+@layout-column-main__offset-2-right: 0;
+@layout-column-main__width-2-right: (@layout-column__width - @layout-column-main__offset-2-right - (@layout-column__sidebar-width + @layout-column__right-offset));
+@layout-column-main__order-2-right: 1;
+
+@layout-column-main__offset-3: 0;
+@layout-column-main__width-3: (@layout-column__width - @layout-column-main__offset-3 - (@layout-column__left-width-3 + @layout-column__left-offset-3) - (@layout-column__right-width-3 + @layout-column__right-offset-3));
+@layout-column-main__order-3: 1;
+
+//  Checkout columns width
+@layout-column-checkout__width-left: 3;
+@layout-column-checkout__width-main: @layout-column__width - @layout-column-checkout__width-left;
