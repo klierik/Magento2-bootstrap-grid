@@ -12,7 +12,7 @@ This theme allow to use Bootstrap Grid and Utilities.
 
 ## Bootstrap Grid
 
-You can use similar to [Bootstrap Grid](https://getbootstrap.com/docs/4.4/layout/grid/) classes and mixins.
+You can use similar to [Bootstrap Grid](https://getbootstrap.com/docs/4.4/layout/grid/) classes and mixins. Check the [_grid.less](https://github.com/klierik/magento2-bootstrap-grid/blob/master/klierik/grid/web/css/source/extend/lib/_grid.less) file for more information.
 
 ## Utilities
 
